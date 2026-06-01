@@ -1,0 +1,220 @@
+@use "variables" as *;
+
+@keyframes skeletonShimmer {
+    0% {
+        background-position: -400px 0;
+    }
+    100% {
+        background-position: 400px 0;
+    }
+}
+
+@keyframes typingCursorBlink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+// ── AI Widget — glassmorphism card ────────────────────────────────────────────
+.ai-widget {
+    background: rgba($color-bg-card, 0.75);
+    border: 1px solid rgba($color-accent-2, 0.2);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+    position: relative;
+
+    // Subtle glow from top-left
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 120px;
+        background: radial-gradient(
+            ellipse at top left,
+            rgba($color-accent-2, 0.08),
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba($color-accent-2, 0.12);
+        background: rgba($color-accent-2, 0.04);
+    }
+
+    &__icon {
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    &__title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    &__body {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__input-row {
+        display: flex;
+        gap: 0.75rem;
+
+        @include respond-to(mobile) {
+            flex-direction: column;
+        }
+    }
+
+    &__input {
+        flex: 1;
+        background: $color-bg;
+        color: $color-text;
+        border: 1.5px solid rgba($color-accent-2, 0.25);
+        border-radius: var(--radius-sm);
+        padding: 0.6rem 0.85rem;
+        font-size: 0.9rem;
+        transition:
+            border-color var(--transition-base),
+            box-shadow var(--transition-base);
+
+        &::placeholder {
+            color: rgba($color-text-muted, 0.6);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $color-accent-2;
+            box-shadow: 0 0 0 3px rgba($color-accent-2, 0.15);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    &__btn {
+        flex-shrink: 0;
+        background: $color-accent-2;
+        border-color: $color-accent-2;
+        color: $color-bg;
+
+        &:hover:not(:disabled) {
+            background: $color-accent-2-hover;
+            border-color: $color-accent-2-hover;
+            box-shadow: 0 0 20px rgba($color-accent-2, 0.35);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
+
+    &__response {
+        min-height: 0;
+        transition: min-height var(--transition-slow);
+
+        &:not(:empty) {
+            min-height: 80px;
+        }
+    }
+}
+
+// ── Skeleton lines ────────────────────────────────────────────────────────────
+.ai-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+
+    &__line {
+        height: 14px;
+        border-radius: 4px;
+        background: linear-gradient(
+            90deg,
+            $color-border 0px,
+            rgba($color-text-muted, 0.15) 200px,
+            $color-border 400px
+        );
+        background-size: 800px 100%;
+        animation: skeletonShimmer 1.5s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+            background: $color-border;
+        }
+
+        &:nth-child(1) {
+            width: 90%;
+        }
+        &:nth-child(2) {
+            width: 75%;
+        }
+        &:nth-child(3) {
+            width: 55%;
+        }
+    }
+}
+
+// ── AI response text ──────────────────────────────────────────────────────────
+.ai-response-text {
+    font-size: 0.9rem;
+    color: $color-text;
+    line-height: 1.7;
+    padding: 1rem;
+    background: rgba($color-bg, 0.5);
+    border: 1px solid rgba($color-accent-2, 0.12);
+    border-radius: var(--radius-sm);
+    position: relative;
+
+    &__cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: $color-accent-2;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: typingCursorBlink 0.8s step-end infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+            display: none;
+        }
+    }
+}
+
+// ── AI error ──────────────────────────────────────────────────────────────────
+.ai-error {
+    font-size: 0.85rem;
+    color: $color-error;
+    padding: 0.75rem 1rem;
+    background: rgba($color-error, 0.07);
+    border: 1px solid rgba($color-error, 0.2);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: "⚠";
+        font-size: 0.9rem;
+    }
+}

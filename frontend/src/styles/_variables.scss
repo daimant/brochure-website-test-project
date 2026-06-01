@@ -1,0 +1,104 @@
+// ─── Color palette ───────────────────────────────────────────────────────────
+$color-bg: #0a0e1a;
+$color-bg-secondary: #111827;
+$color-bg-card: #161d2e;
+$color-accent: #60a5fa;
+$color-accent-2: #a78bfa;
+$color-accent-glow: rgba(96, 165, 250, 0.15);
+$color-text: #e2e8f0;
+$color-text-muted: #64748b;
+$color-border: #1e293b;
+$color-success: #34d399;
+$color-error: #f87171;
+
+// Hover / lighter variants (avoids deprecated lighten())
+$color-accent-light: #93c4fc; // ≈ lighten($color-accent, 10%)
+$color-accent-hover: #82bbfb; // ≈ lighten($color-accent, 8%)
+$color-accent-2-hover: #bba8fb; // ≈ lighten($color-accent-2, 6%)
+
+// ─── CSS custom properties (runtime theming) ──────────────────────────────────
+:root {
+    --color-bg: #{$color-bg};
+    --color-bg-secondary: #{$color-bg-secondary};
+    --color-bg-card: #{$color-bg-card};
+    --color-accent: #{$color-accent};
+    --color-accent-2: #{$color-accent-2};
+    --color-accent-glow: #{$color-accent-glow};
+    --color-text: #{$color-text};
+    --color-text-muted: #{$color-text-muted};
+    --color-border: #{$color-border};
+    --color-success: #{$color-success};
+    --color-error: #{$color-error};
+
+    // Typography
+    --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+    // Spacing
+    --section-gap: 7rem;
+    --container-max: 1200px;
+    --container-pad: 1.5rem;
+
+    // Transitions
+    --transition-base: 0.25s ease;
+    --transition-slow: 0.45s ease;
+
+    // Radii
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+$font-body: var(--font-body);
+$font-mono: var(--font-mono);
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+$bp-mobile: 768px;
+$bp-tablet: 1024px;
+
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == mobile {
+        @media (max-width: #{$bp-mobile - 1px}) {
+            @content;
+        }
+    } @else if $breakpoint == tablet {
+        @media (min-width: #{$bp-mobile}) and (max-width: #{$bp-tablet - 1px}) {
+            @content;
+        }
+    } @else if $breakpoint == tablet-down {
+        @media (max-width: #{$bp-tablet - 1px}) {
+            @content;
+        }
+    } @else if $breakpoint == desktop {
+        @media (min-width: #{$bp-tablet}) {
+            @content;
+        }
+    }
+}
+
+// ─── Utility mixins ──────────────────────────────────────────────────────────
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin card-base {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    border-radius: var(--radius-md);
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+
+    &:hover {
+        border-color: rgba($color-accent, 0.4);
+        box-shadow: 0 0 24px rgba($color-accent, 0.08);
+    }
+}
+
+@mixin focus-ring {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+}

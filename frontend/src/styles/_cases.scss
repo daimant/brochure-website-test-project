@@ -1,0 +1,163 @@
+@use "variables" as *;
+
+.cases {
+    padding: var(--section-gap) 0;
+    background: $color-bg-secondary;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+
+        @include respond-to(tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to(mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// Case card with hover reveal
+.case-card {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    min-height: 340px;
+    cursor: default;
+
+    &__inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 340px;
+    }
+
+    &__front {
+        @include card-base;
+        position: absolute;
+        inset: 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        transition:
+            opacity var(--transition-slow),
+            transform var(--transition-slow);
+        border-radius: var(--radius-md);
+    }
+
+    &__hover {
+        position: absolute;
+        inset: 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        background: linear-gradient(
+            135deg,
+            rgba($color-accent, 0.12) 0%,
+            rgba($color-accent-2, 0.12) 100%
+        );
+        border: 1px solid rgba($color-accent, 0.35);
+        border-radius: var(--radius-md);
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+            opacity var(--transition-slow),
+            transform var(--transition-slow);
+        backdrop-filter: blur(8px);
+    }
+
+    &:hover &__front {
+        opacity: 0;
+        transform: translateY(-8px);
+
+        @media (prefers-reduced-motion: reduce) {
+            opacity: 0;
+            transform: none;
+        }
+    }
+
+    &:hover &__hover {
+        opacity: 1;
+        transform: translateY(0);
+
+        @media (prefers-reduced-motion: reduce) {
+            transform: none;
+        }
+    }
+
+    &:focus-within &__front {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    &:focus-within &__hover {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    &__tag {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    &__title {
+        font-family: $font-mono;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $color-accent;
+        line-height: 1.2;
+    }
+
+    &__subtitle {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $color-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    &__desc {
+        font-size: 0.9rem;
+        color: $color-text-muted;
+        line-height: 1.65;
+        flex: 1;
+    }
+
+    &__hover-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $color-text;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba($color-accent, 0.2);
+    }
+
+    &__points {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: $color-text;
+            line-height: 1.5;
+
+            &::before {
+                content: "→";
+                color: $color-accent;
+                flex-shrink: 0;
+                font-family: $font-mono;
+                font-size: 0.85rem;
+                margin-top: 0.05em;
+            }
+        }
+    }
+}

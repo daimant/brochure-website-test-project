@@ -1,0 +1,135 @@
+@use "variables" as *;
+
+.approach {
+    padding: var(--section-gap) 0;
+    background: $color-bg;
+
+    // ── Main approach cards ──────────────────────────────────────────────────────
+    &__cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 5rem;
+
+        @include respond-to(tablet-down) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    // ── AI subsection ────────────────────────────────────────────────────────────
+    &__ai {
+        // wrapper for AI cards block
+    }
+
+    &__ai-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $color-text;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 32px;
+            height: 3px;
+            background: linear-gradient(90deg, $color-accent-2, $color-accent);
+            border-radius: 2px;
+        }
+    }
+
+    &__ai-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+
+        @include respond-to(tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to(mobile) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+// ── Approach card ─────────────────────────────────────────────────────────────
+.approach-card {
+    @include card-base;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, $color-accent, $color-accent-2);
+        opacity: 0;
+        transition: opacity var(--transition-base);
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+
+    &__icon {
+        font-size: 2rem;
+        line-height: 1;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    &__desc {
+        font-size: 0.9rem;
+        color: $color-text-muted;
+        line-height: 1.7;
+        flex: 1;
+    }
+}
+
+// ── AI mini card ──────────────────────────────────────────────────────────────
+.ai-card {
+    @include card-base;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: rgba($color-accent-2, 0.04);
+    border-color: rgba($color-accent-2, 0.15);
+
+    &:hover {
+        border-color: rgba($color-accent-2, 0.4);
+        box-shadow: 0 0 20px rgba($color-accent-2, 0.08);
+    }
+
+    &__icon {
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
+    &__title {
+        font-family: $font-mono;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: $color-accent-2;
+    }
+
+    &__desc {
+        font-size: 0.8rem;
+        color: $color-text-muted;
+        line-height: 1.6;
+    }
+}

@@ -1,0 +1,153 @@
+@use "variables" as *;
+
+.about {
+    padding: var(--section-gap) 0;
+    background: $color-bg-secondary;
+
+    &__sub-heading {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $color-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-family: $font-mono;
+        margin-bottom: 1.5rem;
+    }
+
+    // ── Stack grid ──────────────────────────────────────────────────────────────
+    &__stack {
+        margin-bottom: 4rem;
+    }
+
+    &__stack-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+
+        @include respond-to(tablet) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond-to(mobile) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    // ── Experience ──────────────────────────────────────────────────────────────
+    &__experience {
+        margin-bottom: 4rem;
+    }
+
+    &__exp-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 560px;
+    }
+
+    &__exp-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1rem;
+        color: $color-text;
+    }
+
+    &__exp-dot {
+        flex-shrink: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, $color-accent, $color-accent-2);
+        box-shadow: 0 0 8px rgba($color-accent, 0.5);
+    }
+
+    // ── Directions ──────────────────────────────────────────────────────────────
+    &__directions {
+        // no extra styles needed
+    }
+
+    &__directions-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+
+        @include respond-to(tablet-down) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// ── Stack card ────────────────────────────────────────────────────────────────
+.stack-card {
+    @include card-base;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg,
+            rgba($color-accent, 0.04),
+            transparent
+        );
+        opacity: 0;
+        transition: opacity var(--transition-base);
+    }
+
+    &:hover::before {
+        opacity: 1;
+    }
+
+    &__icon {
+        font-size: 1.5rem;
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+
+    &__name {
+        font-family: $font-mono;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: $color-text;
+    }
+
+    &__note {
+        font-size: 0.75rem;
+        color: $color-text-muted;
+    }
+}
+
+// ── Direction card ────────────────────────────────────────────────────────────
+.direction-card {
+    @include card-base;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &__icon {
+        font-size: 2rem;
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+
+    &__title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    &__desc {
+        font-size: 0.9rem;
+        color: $color-text-muted;
+        line-height: 1.6;
+    }
+}

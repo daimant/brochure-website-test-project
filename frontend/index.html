@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Сергей Поморцев — Frontend Developer. Создаю современные веб-приложения на Vue и React."
+        />
+        <title>Сергей Поморцев — Frontend Developer</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+        />
+    </head>
+    <body>
+        <!-- ====== HEADER ====== -->
+        <header class="header" id="top">
+            <div class="header__inner container">
+                <a href="#top" class="header__logo" aria-label="Главная">
+                    <span class="header__logo-text">&lt;SP/&gt;</span>
+                </a>
+                <nav
+                    class="header__nav"
+                    id="nav"
+                    aria-label="Основная навигация"
+                >
+                    <ul class="header__nav-list">
+                        <li>
+                            <a href="#about" class="header__nav-link">О себе</a>
+                        </li>
+                        <li>
+                            <a href="#approach" class="header__nav-link"
+                                >Подход</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#cases" class="header__nav-link"
+                                >Проекты</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#contact" class="header__nav-link"
+                                >Контакты</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+                <button
+                    class="header__burger"
+                    id="burger"
+                    aria-label="Открыть меню"
+                    aria-expanded="false"
+                    aria-controls="nav"
+                >
+                    <span class="header__burger-line"></span>
+                    <span class="header__burger-line"></span>
+                    <span class="header__burger-line"></span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- ====== HERO ====== -->
+            <section class="hero" id="hero" aria-label="Приветствие">
+                <div class="hero__bg" aria-hidden="true">
+                    <div class="hero__grid"></div>
+                </div>
+                <div class="hero__content container">
+                    <div class="hero__text">
+                        <p class="hero__location reveal">
+                            <span class="hero__location-icon">📍</span>
+                            Екатеринбург · 5+ лет опыта
+                        </p>
+                        <h1 class="hero__name reveal">Сергей Поморцев</h1>
+                        <p class="hero__subtitle reveal">
+                            <span
+                                class="hero__typewriter"
+                                id="typewriter"
+                                aria-live="polite"
+                            ></span>
+                            <span class="hero__cursor" aria-hidden="true"
+                                >|</span
+                            >
+                        </p>
+                        <p class="hero__bio reveal">
+                            Создаю современные веб-приложения на Vue и React.<br />
+                            Превращаю сложные задачи в элегантные решения.
+                        </p>
+                        <div class="hero__cta reveal">
+                            <a href="#cases" class="btn btn--primary"
+                                >Мои проекты</a
+                            >
+                            <a href="#contact" class="btn btn--outline"
+                                >Написать мне</a
+                            >
+                        </div>
+                    </div>
+                </div>
+                <a
+                    href="#about"
+                    class="hero__scroll"
+                    aria-label="Прокрутить вниз"
+                >
+                    <span class="hero__scroll-dot"></span>
+                </a>
+            </section>
+
+            <!-- ====== ABOUT ====== -->
+            <section class="about" id="about" aria-labelledby="about-heading">
+                <div class="container">
+                    <h2 class="section-heading reveal" id="about-heading">
+                        О себе
+                    </h2>
+
+                    <!-- Stack grid -->
+                    <div class="about__stack reveal">
+                        <h3 class="about__sub-heading">Стек технологий</h3>
+                        <div class="about__stack-grid">
+                            <div class="stack-card">
+                                <span class="stack-card__icon">⚡</span>
+                                <span class="stack-card__name"
+                                    >Vue 3 + Pinia</span
+                                >
+                                <span class="stack-card__note"
+                                    >Основной стек</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">⚛️</span>
+                                <span class="stack-card__name"
+                                    >React + Redux</span
+                                >
+                                <span class="stack-card__note"
+                                    >Production-ready</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🟦</span>
+                                <span class="stack-card__name">TypeScript</span>
+                                <span class="stack-card__note"
+                                    >Всегда typed</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🎨</span>
+                                <span class="stack-card__name">SCSS / CSS</span>
+                                <span class="stack-card__note"
+                                    >Pixel-perfect UI</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🔧</span>
+                                <span class="stack-card__name"
+                                    >Vite / Webpack</span
+                                >
+                                <span class="stack-card__note"
+                                    >Build tools</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🌐</span>
+                                <span class="stack-card__name"
+                                    >REST / GraphQL</span
+                                >
+                                <span class="stack-card__note"
+                                    >API integration</span
+                                >
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🧪</span>
+                                <span class="stack-card__name"
+                                    >Vitest / Jest</span
+                                >
+                                <span class="stack-card__note">Testing</span>
+                            </div>
+                            <div class="stack-card">
+                                <span class="stack-card__icon">🤖</span>
+                                <span class="stack-card__name">AI Tools</span>
+                                <span class="stack-card__note"
+                                    >Cursor, Claude, GPT</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="about__experience reveal">
+                        <h3 class="about__sub-heading">Опыт</h3>
+                        <ul class="about__exp-list">
+                            <li class="about__exp-item">
+                                <span
+                                    class="about__exp-dot"
+                                    aria-hidden="true"
+                                ></span>
+                                5+ лет в коммерческой разработке
+                            </li>
+                            <li class="about__exp-item">
+                                <span
+                                    class="about__exp-dot"
+                                    aria-hidden="true"
+                                ></span>
+                                Frontend архитектура и компонентный дизайн
+                            </li>
+                            <li class="about__exp-item">
+                                <span
+                                    class="about__exp-dot"
+                                    aria-hidden="true"
+                                ></span>
+                                Работа в команде и соло-проекты
+                            </li>
+                            <li class="about__exp-item">
+                                <span
+                                    class="about__exp-dot"
+                                    aria-hidden="true"
+                                ></span>
+                                Международные проекты и стартапы
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Directions -->
+                    <div class="about__directions reveal">
+                        <h3 class="about__sub-heading">Направления</h3>
+                        <div class="about__directions-grid">
+                            <div class="direction-card">
+                                <span class="direction-card__icon">🖥️</span>
+                                <h4 class="direction-card__title">
+                                    Web Applications
+                                </h4>
+                                <p class="direction-card__desc">
+                                    SPA, dashboards, порталы
+                                </p>
+                            </div>
+                            <div class="direction-card">
+                                <span class="direction-card__icon">🛒</span>
+                                <h4 class="direction-card__title">
+                                    E-commerce &amp; Marketplaces
+                                </h4>
+                                <p class="direction-card__desc">
+                                    Корзины, каталоги, платёжные системы
+                                </p>
+                            </div>
+                            <div class="direction-card">
+                                <span class="direction-card__icon">🏗️</span>
+                                <h4 class="direction-card__title">
+                                    Architecture
+                                </h4>
+                                <p class="direction-card__desc">
+                                    Компонентный дизайн, state management,
+                                    оптимизация
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== APPROACH ====== -->
+            <section
+                class="approach"
+                id="approach"
+                aria-labelledby="approach-heading"
+            >
+                <div class="container">
+                    <h2 class="section-heading reveal" id="approach-heading">
+                        Как я работаю
+                    </h2>
+
+                    <div class="approach__cards reveal">
+                        <div class="approach-card">
+                            <span class="approach-card__icon">🎯</span>
+                            <h3 class="approach-card__title">
+                                Задача прежде всего
+                            </h3>
+                            <p class="approach-card__desc">
+                                Сначала разбираюсь в бизнес-задаче, потом
+                                выбираю инструмент. Пишу чистый, поддерживаемый
+                                код.
+                            </p>
+                        </div>
+                        <div class="approach-card">
+                            <span class="approach-card__icon">🔄</span>
+                            <h3 class="approach-card__title">Итеративно</h3>
+                            <p class="approach-card__desc">
+                                MVP → фидбек → улучшение. Не жду идеального
+                                решения, двигаюсь маленькими шагами.
+                            </p>
+                        </div>
+                        <div class="approach-card">
+                            <span class="approach-card__icon">📝</span>
+                            <h3 class="approach-card__title">Документирую</h3>
+                            <p class="approach-card__desc">
+                                Код читают люди. Комментирую решения, веду
+                                README, пишу понятные коммиты.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AI subsection -->
+                    <div class="approach__ai reveal">
+                        <h3 class="approach__ai-heading">AI в работе</h3>
+                        <div class="approach__ai-grid">
+                            <div class="ai-card">
+                                <span class="ai-card__icon">🤖</span>
+                                <h4 class="ai-card__title">Cursor IDE</h4>
+                                <p class="ai-card__desc">
+                                    AI-first редактор для ускоренного кодинга
+                                </p>
+                            </div>
+                            <div class="ai-card">
+                                <span class="ai-card__icon">💬</span>
+                                <h4 class="ai-card__title">Claude / GPT</h4>
+                                <p class="ai-card__desc">
+                                    Architectural decisions, code review,
+                                    debugging
+                                </p>
+                            </div>
+                            <div class="ai-card">
+                                <span class="ai-card__icon">🔍</span>
+                                <h4 class="ai-card__title">Code Review</h4>
+                                <p class="ai-card__desc">
+                                    AI помогает найти edge-cases и улучшить код
+                                </p>
+                            </div>
+                            <div class="ai-card">
+                                <span class="ai-card__icon">⚡</span>
+                                <h4 class="ai-card__title">Скорость × 3</h4>
+                                <p class="ai-card__desc">
+                                    AI-инструменты ускоряют рутину и дают фокус
+                                    на архитектуру
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== CASES ====== -->
+            <section class="cases" id="cases" aria-labelledby="cases-heading">
+                <div class="container">
+                    <h2 class="section-heading reveal" id="cases-heading">
+                        Проекты
+                    </h2>
+                    <div class="cases__grid">
+                        <!-- Project 1 -->
+                        <article
+                            class="case-card reveal"
+                            aria-label="Проект e.pn"
+                        >
+                            <div class="case-card__inner">
+                                <div class="case-card__front">
+                                    <div class="case-card__tag">
+                                        <span class="tag">Fintech</span>
+                                        <span class="tag">Vue 3</span>
+                                        <span class="tag">Pinia</span>
+                                    </div>
+                                    <h3 class="case-card__title">e.pn</h3>
+                                    <p class="case-card__subtitle">
+                                        Сервис электронных карт
+                                    </p>
+                                    <p class="case-card__desc">
+                                        Платформа для создания и управления
+                                        электронными визитными картами.
+                                        Разработал SPA-архитектуру, систему
+                                        шаблонов карт, интеграцию с платёжными
+                                        сервисами.
+                                    </p>
+                                </div>
+                                <div class="case-card__hover">
+                                    <h4 class="case-card__hover-title">
+                                        Ключевые решения
+                                    </h4>
+                                    <ul class="case-card__points">
+                                        <li>SPA на Vue 3</li>
+                                        <li>State management с Pinia</li>
+                                        <li>PWA-поддержка</li>
+                                        <li>A/B тестирование</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 2 -->
+                        <article
+                            class="case-card reveal"
+                            aria-label="Проект dv.net"
+                        >
+                            <div class="case-card__inner">
+                                <div class="case-card__front">
+                                    <div class="case-card__tag">
+                                        <span class="tag">Crypto</span>
+                                        <span class="tag">React</span>
+                                        <span class="tag">Redux</span>
+                                    </div>
+                                    <h3 class="case-card__title">dv.net</h3>
+                                    <p class="case-card__subtitle">
+                                        Криптомерчант
+                                    </p>
+                                    <p class="case-card__desc">
+                                        Сервис для приёма крипто-платежей на
+                                        сайтах. Создал dashboard для мерчантов,
+                                        виджет оплаты, систему уведомлений.
+                                    </p>
+                                </div>
+                                <div class="case-card__hover">
+                                    <h4 class="case-card__hover-title">
+                                        Ключевые решения
+                                    </h4>
+                                    <ul class="case-card__points">
+                                        <li>React + Redux Toolkit</li>
+                                        <li>WebSocket для real-time</li>
+                                        <li>Адаптивный виджет</li>
+                                        <li>Crypto API</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Project 3 -->
+                        <article
+                            class="case-card reveal"
+                            aria-label="Проект sx.org"
+                        >
+                            <div class="case-card__inner">
+                                <div class="case-card__front">
+                                    <div class="case-card__tag">
+                                        <span class="tag">Marketplace</span>
+                                        <span class="tag">Vue</span>
+                                        <span class="tag">TypeScript</span>
+                                    </div>
+                                    <h3 class="case-card__title">sx.org</h3>
+                                    <p class="case-card__subtitle">
+                                        Маркетплейс прокси
+                                    </p>
+                                    <p class="case-card__desc">
+                                        Маркетплейс для покупки прокси-серверов.
+                                        Разработал каталог с фильтрацией, личный
+                                        кабинет, систему балансов и пополнений.
+                                    </p>
+                                </div>
+                                <div class="case-card__hover">
+                                    <h4 class="case-card__hover-title">
+                                        Ключевые решения
+                                    </h4>
+                                    <ul class="case-card__points">
+                                        <li>Сложная фильтрация</li>
+                                        <li>Кабинет пользователя</li>
+                                        <li>Биллинг</li>
+                                        <li>TypeScript-first</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== CONTACT ====== -->
+            <section
+                class="contact"
+                id="contact"
+                aria-labelledby="contact-heading"
+            >
+                <div class="container">
+                    <h2 class="section-heading reveal" id="contact-heading">
+                        Связаться
+                    </h2>
+                    <div class="contact__layout">
+                        <!-- Left column -->
+                        <div class="contact__left reveal">
+                            <div class="contact__info">
+                                <h3 class="contact__info-title">Контакты</h3>
+                                <ul class="contact__links">
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >✈️</span
+                                        >
+                                        <a
+                                            href="https://t.me/daimantt"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="contact__link"
+                                            >tg: @daimantt</a
+                                        >
+                                    </li>
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >📞</span
+                                        >
+                                        <a
+                                            href="tel:+79266622577"
+                                            class="contact__link"
+                                            >+7 (926) 66-22-577</a
+                                        >
+                                    </li>
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >💼</span
+                                        >
+                                        <a
+                                            href="https://linkedin.com/in/daimant"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="contact__link"
+                                            >linkedin.com/in/daimant</a
+                                        >
+                                    </li>
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >🐙</span
+                                        >
+                                        <a
+                                            href="https://github.com/daimant"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="contact__link"
+                                            >github.com/daimant</a
+                                        >
+                                    </li>
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >📸</span
+                                        >
+                                        <a
+                                            href="https://instagram.com/daimant"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="contact__link"
+                                            >instagram.com/daimant</a
+                                        >
+                                    </li>
+                                    <li class="contact__link-item">
+                                        <span
+                                            class="contact__link-icon"
+                                            aria-hidden="true"
+                                            >▶️</span
+                                        >
+                                        <a
+                                            href="https://youtube.com/@daimantt"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="contact__link"
+                                            >youtube.com/@daimantt</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- AI Widget -->
+                            <div
+                                class="ai-widget"
+                                id="ai-widget"
+                                aria-labelledby="ai-widget-title"
+                            >
+                                <div class="ai-widget__header">
+                                    <span
+                                        class="ai-widget__icon"
+                                        aria-hidden="true"
+                                        >🤖</span
+                                    >
+                                    <h3
+                                        class="ai-widget__title"
+                                        id="ai-widget-title"
+                                    >
+                                        Спросите ИИ обо мне
+                                    </h3>
+                                </div>
+                                <div class="ai-widget__body">
+                                    <div class="ai-widget__input-row">
+                                        <input
+                                            type="text"
+                                            class="ai-widget__input"
+                                            id="ai-question"
+                                            placeholder="Введите вопрос о моём опыте..."
+                                            aria-label="Вопрос об опыте"
+                                            autocomplete="off"
+                                        />
+                                        <button
+                                            class="ai-widget__btn btn btn--primary"
+                                            id="ai-ask-btn"
+                                            type="button"
+                                        >
+                                            Спросить
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="ai-widget__response"
+                                        id="ai-response"
+                                        aria-live="polite"
+                                        aria-atomic="true"
+                                    >
+                                        <!-- Skeleton / response inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right column: Contact form -->
+                        <div class="contact__right reveal">
+                            <form
+                                class="contact-form"
+                                id="contact-form"
+                                novalidate
+                                aria-label="Форма обратной связи"
+                            >
+                                <h3 class="contact-form__title">
+                                    Напишите мне
+                                </h3>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="field-name"
+                                        >Имя</label
+                                    >
+                                    <input
+                                        class="form-input"
+                                        type="text"
+                                        id="field-name"
+                                        name="name"
+                                        placeholder="Ваше имя"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                    <span
+                                        class="form-error"
+                                        id="error-name"
+                                        role="alert"
+                                    ></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="field-phone"
+                                        >Телефон</label
+                                    >
+                                    <input
+                                        class="form-input"
+                                        type="tel"
+                                        id="field-phone"
+                                        name="phone"
+                                        placeholder="+7 (999) 000-00-00"
+                                        autocomplete="tel"
+                                        required
+                                    />
+                                    <span
+                                        class="form-error"
+                                        id="error-phone"
+                                        role="alert"
+                                    ></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="field-email"
+                                        >Email</label
+                                    >
+                                    <input
+                                        class="form-input"
+                                        type="email"
+                                        id="field-email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                    <span
+                                        class="form-error"
+                                        id="error-email"
+                                        role="alert"
+                                    ></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label
+                                        class="form-label"
+                                        for="field-message"
+                                        >Сообщение</label
+                                    >
+                                    <textarea
+                                        class="form-input form-input--textarea"
+                                        id="field-message"
+                                        name="message"
+                                        placeholder="Расскажите о вашем проекте..."
+                                        rows="5"
+                                        required
+                                    ></textarea>
+                                    <span
+                                        class="form-error"
+                                        id="error-message"
+                                        role="alert"
+                                    ></span>
+                                </div>
+
+                                <button
+                                    class="btn btn--primary form-submit"
+                                    type="submit"
+                                    id="form-submit-btn"
+                                >
+                                    <span class="form-submit__text"
+                                        >Отправить</span
+                                    >
+                                    <span
+                                        class="form-submit__spinner"
+                                        aria-hidden="true"
+                                    ></span>
+                                </button>
+
+                                <div
+                                    class="form-status"
+                                    id="form-status"
+                                    aria-live="polite"
+                                    aria-atomic="true"
+                                ></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer" role="contentinfo">
+            <div class="footer__inner container">
+                <p class="footer__copy">&copy; 2025 Сергей Поморцев</p>
+                <div class="footer__links">
+                    <a
+                        href="https://t.me/daimantt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer__link"
+                        aria-label="Telegram"
+                        >Telegram</a
+                    >
+                    <a
+                        href="https://linkedin.com/in/daimant"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer__link"
+                        aria-label="LinkedIn"
+                        >LinkedIn</a
+                    >
+                    <a
+                        href="https://github.com/daimant"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer__link"
+                        aria-label="GitHub"
+                        >GitHub</a
+                    >
+                    <a
+                        href="https://instagram.com/daimant"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer__link"
+                        aria-label="Instagram"
+                        >Instagram</a
+                    >
+                    <a
+                        href="https://youtube.com/@daimantt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="footer__link"
+                        aria-label="YouTube"
+                        >YouTube</a
+                    >
+                </div>
+                <p class="footer__built">
+                    Built with TypeScript + Vite + SCSS · AI-assisted
+                </p>
+            </div>
+        </footer>
+
+        <script type="module" src="/src/ts/main.ts"></script>
+    </body>
+</html>

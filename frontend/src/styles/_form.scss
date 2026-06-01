@@ -1,0 +1,218 @@
+@use "variables" as *;
+
+@keyframes spinnerRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ── Contact form ──────────────────────────────────────────────────────────────
+.contact-form {
+    @include card-base;
+    padding: 2.5rem;
+
+    @include respond-to(mobile) {
+        padding: 1.75rem;
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $color-text;
+        margin-bottom: 2rem;
+    }
+}
+
+// ── Form group ────────────────────────────────────────────────────────────────
+.form-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+
+    &:last-of-type {
+        margin-bottom: 1.75rem;
+    }
+}
+
+// ── Label ─────────────────────────────────────────────────────────────────────
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $color-text-muted;
+    display: block;
+    transition: color var(--transition-base);
+
+    .form-group:focus-within & {
+        color: $color-accent;
+    }
+}
+
+// ── Input / Textarea ──────────────────────────────────────────────────────────
+.form-input {
+    width: 100%;
+    background: $color-bg;
+    color: $color-text;
+    border: 1.5px solid $color-border;
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+    appearance: none;
+    -webkit-appearance: none;
+
+    &::placeholder {
+        color: rgba($color-text-muted, 0.6);
+    }
+
+    &:hover {
+        border-color: rgba($color-accent, 0.35);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color-accent;
+        box-shadow: 0 0 0 3px rgba($color-accent, 0.15);
+    }
+
+    // Error state
+    &.is-error {
+        border-color: $color-error;
+        box-shadow: 0 0 0 3px rgba($color-error, 0.12);
+
+        &:focus {
+            border-color: $color-error;
+            box-shadow: 0 0 0 3px rgba($color-error, 0.18);
+        }
+    }
+
+    // Disabled state (during form submission)
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &--textarea {
+        resize: vertical;
+        min-height: 120px;
+        max-height: 300px;
+    }
+}
+
+// ── Inline error message ──────────────────────────────────────────────────────
+.form-error {
+    font-size: 0.78rem;
+    color: $color-error;
+    min-height: 1em;
+    display: block;
+    transition: opacity var(--transition-base);
+
+    &:empty {
+        opacity: 0;
+    }
+}
+
+// ── Submit button ─────────────────────────────────────────────────────────────
+.form-submit {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    min-height: 48px;
+
+    &__text {
+        transition: opacity var(--transition-base);
+    }
+
+    &__spinner {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba($color-bg, 0.3);
+        border-top-color: $color-bg;
+        border-radius: 50%;
+        animation: spinnerRotate 0.7s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+            border-top-color: $color-bg;
+        }
+    }
+
+    // Loading state
+    &.is-loading {
+        pointer-events: none;
+        opacity: 0.85;
+
+        .form-submit__text {
+            opacity: 0;
+        }
+
+        .form-submit__spinner {
+            display: block;
+        }
+    }
+}
+
+// ── Form status ───────────────────────────────────────────────────────────────
+.form-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    min-height: 1.4em;
+    transition: opacity var(--transition-base);
+
+    &:empty {
+        opacity: 0;
+    }
+
+    &--success {
+        color: $color-success;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &::before {
+            content: "✓";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba($color-success, 0.15);
+            border: 1.5px solid rgba($color-success, 0.4);
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+    }
+
+    &--error {
+        color: $color-error;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &::before {
+            content: "!";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba($color-error, 0.12);
+            border: 1.5px solid rgba($color-error, 0.35);
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+    }
+}

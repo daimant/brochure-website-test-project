@@ -1,0 +1,14 @@
+// Entry point — uses the modern Sass @use module system.
+// Each partial declares its own @use 'variables' as * dependency,
+// so no globals leak between files.
+
+@use "reset";
+@use "header";
+@use "hero";
+@use "about";
+@use "approach";
+@use "cases";
+@use "contact";
+@use "form";
+@use "ai-widget";
+@use "footer";
