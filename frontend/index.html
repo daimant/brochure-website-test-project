@@ -638,11 +638,32 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label
-                                        class="form-label"
-                                        for="field-message"
-                                        >Сообщение</label
-                                    >
+                                    <div class="form-label-row">
+                                        <label
+                                            class="form-label"
+                                            for="field-message"
+                                            >Сообщение</label
+                                        >
+                                        <button
+                                            type="button"
+                                            id="ai-generate-btn"
+                                            class="ai-generate-btn"
+                                            aria-label="Сгенерировать пример сообщения с помощью AI"
+                                        >
+                                            <span
+                                                class="ai-generate-btn__icon"
+                                                aria-hidden="true"
+                                                >✨</span
+                                            >
+                                            <span class="ai-generate-btn__text"
+                                                >Сгенерировать пример</span
+                                            >
+                                            <span
+                                                class="ai-generate-btn__spinner"
+                                                aria-hidden="true"
+                                            ></span>
+                                        </button>
+                                    </div>
                                     <textarea
                                         class="form-input form-input--textarea"
                                         id="field-message"

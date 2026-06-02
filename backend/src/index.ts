@@ -1,18 +1,34 @@
-import 'dotenv/config';
-import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
+import "dotenv/config";
+import express, { Request, Response, NextFunction } from "express";
+import cors from "cors";
+import helmet from "helmet";
 
-import contactRouter from './routes/contact';
+import contactRouter from "./routes/contact";
+import aiGenerateRouter from "./routes/ai-generate";
 
 // ---------------------------------------------------------------------------
 // Environment validation
 // ---------------------------------------------------------------------------
-const REQUIRED_ENV: string[] = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'OWNER_EMAIL'];
+const REQUIRED_ENV: string[] = [
+  "SMTP_HOST",
+  "SMTP_USER",
+  "SMTP_PASS",
+  "OWNER_EMAIL",
+];
+const OPTIONAL_ENV: string[] = ["OPENROUTER_API_KEY"];
 
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) {
-    console.warn(`[env] WARNING: Required environment variable "${key}" is not set.`);
+    console.warn(
+      `[env] WARNING: Required environment variable "${key}" is not set.`,
+    );
+  }
+}
+for (const key of OPTIONAL_ENV) {
+  if (!process.env[key]) {
+    console.warn(
+      `[env] INFO: Optional environment variable "${key}" is not set (AI generation will be disabled).`,
+    );
   }
 }
 
@@ -21,14 +37,11 @@ for (const key of REQUIRED_ENV) {
 // ---------------------------------------------------------------------------
 const app = express();
 
-const ALLOWED_ORIGINS = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-];
+const ALLOWED_ORIGINS = process.env["NODE_ENV"] === 'dev' ? ["http://localhost:5173"] : ["https://vercel.com"];
 
 app.use(
   helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginResourcePolicy: { policy: "cross-origin" },
   }),
 );
 
@@ -42,29 +55,30 @@ app.use(
         callback(new Error(`CORS: origin "${origin}" not allowed`));
       }
     },
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
 );
 
-app.use(express.json({ limit: '1mb' }));
+app.use(express.json({ limit: "1mb" }));
 
 // ---------------------------------------------------------------------------
 // Routes
 // ---------------------------------------------------------------------------
-app.use('/api/contact', contactRouter);
+app.use("/api/contact", contactRouter);
+app.use("/api/ai-generate", aiGenerateRouter);
 
 // Health-check
-app.get('/health', (_req: Request, res: Response) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // ---------------------------------------------------------------------------
 // 404 handler
 // ---------------------------------------------------------------------------
 app.use((_req: Request, res: Response) => {
-  res.status(404).json({ success: false, message: 'Route not found.' });
+  res.status(404).json({ success: false, message: "Route not found." });
 });
 
 // ---------------------------------------------------------------------------
@@ -72,16 +86,20 @@ app.use((_req: Request, res: Response) => {
 // ---------------------------------------------------------------------------
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error('[error] Unhandled exception:', err.message);
-  res.status(500).json({ success: false, message: 'Internal server error.' });
+  console.error("[error] Unhandled exception:", err.message);
+  res.status(500).json({ success: false, message: "Internal server error." });
 });
 
 // ---------------------------------------------------------------------------
 // Start
 // ---------------------------------------------------------------------------
-const PORT = Number(process.env['PORT']) || 3001;
+const PORT = Number(process.env["PORT"]) || 3001;
 
 app.listen(PORT, () => {
-  console.log(`[server] Portfolio backend is running on http://localhost:${PORT}`);
-  console.log(`[server] Environment: ${process.env['NODE_ENV'] ?? 'development'}`);
+  console.log(
+    `[server] Portfolio backend is running on http://localhost:${PORT}`,
+  );
+  console.log(
+    `[server] Environment: ${process.env["NODE_ENV"] ?? "dev"}`,
+  );
 });

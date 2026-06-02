@@ -63,10 +63,6 @@
     }
 
     // ── Directions ──────────────────────────────────────────────────────────────
-    &__directions {
-        // no extra styles needed
-    }
-
     &__directions-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

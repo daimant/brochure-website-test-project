@@ -103,6 +103,92 @@
     }
 }
 
+// ── Label row (label + AI generate button inline) ───────────────────────────
+.form-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+// ── AI generate button ────────────────────────────────────────────────────────
+.ai-generate-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.22rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: $color-accent-2;
+    background: rgba($color-accent-2, 0.08);
+    border: 1px solid rgba($color-accent-2, 0.22);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    min-width: 148px;
+    justify-content: center;
+    transition:
+        background var(--transition-base),
+        border-color var(--transition-base),
+        color var(--transition-base),
+        opacity var(--transition-base);
+
+    &:hover:not(:disabled) {
+        background: rgba($color-accent-2, 0.16);
+        border-color: rgba($color-accent-2, 0.45);
+        color: $color-accent-2-hover;
+    }
+
+    &:focus-visible {
+        @include focus-ring;
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    &__icon {
+        font-size: 0.78rem;
+        line-height: 1;
+    }
+
+    &__text {
+        transition: opacity var(--transition-base);
+    }
+
+    &__spinner {
+        display: none;
+        position: absolute;
+        right: 0.6rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 11px;
+        height: 11px;
+        border: 1.5px solid rgba($color-accent-2, 0.25);
+        border-top-color: $color-accent-2;
+        border-radius: 50%;
+        animation: spinnerRotate 0.7s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    &.is-loading {
+        pointer-events: none;
+
+        .ai-generate-btn__text {
+            opacity: 0.65;
+        }
+
+        .ai-generate-btn__spinner {
+            display: block;
+        }
+    }
+}
+
 // ── Inline error message ──────────────────────────────────────────────────────
 .form-error {
     font-size: 0.78rem;
