@@ -3,7 +3,6 @@
  * Initializes all interactive modules and runs the typewriter effect.
  */
 
-import "../styles/main.scss";
 import { ScrollAnimations } from "./scroll";
 import { ContactForm } from "./form";
 import { AiMessageGenerator } from "./ai-summary";
