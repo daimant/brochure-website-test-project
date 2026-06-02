@@ -3,6 +3,8 @@
  * and success/error feedback.
  */
 
+const VITE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 interface FormData {
   name: string;
   phone: string;
@@ -187,7 +189,7 @@ export class ContactForm {
     const data = this.getFormData();
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(`${VITE_API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
