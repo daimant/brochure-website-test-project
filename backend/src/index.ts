@@ -15,7 +15,7 @@ const REQUIRED_ENV: string[] = [
   "SMTP_PASS",
   "OWNER_EMAIL",
 ];
-const OPTIONAL_ENV: string[] = ["OPENROUTER_API_KEY"];
+const OPTIONAL_ENV: string[] = ["OPENROUTER_API_KEY", "ALLOWED_ORIGINS"];
 
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) {
@@ -37,7 +37,14 @@ for (const key of OPTIONAL_ENV) {
 // ---------------------------------------------------------------------------
 const app = express();
 
-const ALLOWED_ORIGINS = process.env["NODE_ENV"] === 'dev' ? ["http://localhost:5173"] : ["https://vercel.com"];
+// Comma-separated list of allowed origins, e.g. "https://your-site.vercel.app,https://your-domain.com"
+// Falls back to localhost for local development.
+const ALLOWED_ORIGINS = (
+  process.env["ALLOWED_ORIGINS"] ?? "http://localhost:5173"
+)
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 app.use(
   helmet({
@@ -99,7 +106,14 @@ app.listen(PORT, () => {
   console.log(
     `[server] Portfolio backend is running on http://localhost:${PORT}`,
   );
+  console.log(`[server] Environment: ${process.env["NODE_ENV"] ?? "dev"}`);
   console.log(
-    `[server] Environment: ${process.env["NODE_ENV"] ?? "dev"}`,
+    `[server] CORS allowed origins: ${ALLOWED_ORIGINS.join(", ") || "(none)"}`,
+  );
+  console.log(
+    `[mailer] SMTP_HOST=${process.env["SMTP_HOST"] ?? "(not set)"} ` +
+      `PORT=${process.env["SMTP_PORT"] ?? "587 (default)"} ` +
+      `SECURE=${process.env["SMTP_SECURE"] ?? "(auto-detect)"} ` +
+      `USER=${process.env["SMTP_USER"] ?? "(not set)"}`,
   );
 });
