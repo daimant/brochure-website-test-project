@@ -6,7 +6,6 @@
 import '../styles/main.scss'
 import { ScrollAnimations } from './scroll'
 import { ContactForm } from './form'
-import { AIWidget } from './ai-widget'
 
 // ─── Typewriter effect ────────────────────────────────────────────────────────
 class TypewriterEffect {
@@ -121,9 +120,6 @@ function init(): void {
 
   // Contact form
   new ContactForm()
-
-  // AI Widget
-  new AIWidget()
 
   // Typewriter for hero subtitle
   const typewriterEl = document.getElementById('typewriter')

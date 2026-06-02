@@ -4,22 +4,15 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import contactRouter from './routes/contact';
-import aiRouter from './routes/ai';
 
 // ---------------------------------------------------------------------------
 // Environment validation
 // ---------------------------------------------------------------------------
 const REQUIRED_ENV: string[] = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'OWNER_EMAIL'];
-const OPTIONAL_ENV: string[] = ['OPENAI_API_KEY', 'OPENAI_MODEL'];
 
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) {
     console.warn(`[env] WARNING: Required environment variable "${key}" is not set.`);
-  }
-}
-for (const key of OPTIONAL_ENV) {
-  if (!process.env[key]) {
-    console.warn(`[env] WARNING: Optional environment variable "${key}" is not set.`);
   }
 }
 
@@ -61,7 +54,6 @@ app.use(express.json({ limit: '1mb' }));
 // Routes
 // ---------------------------------------------------------------------------
 app.use('/api/contact', contactRouter);
-app.use('/api/ai', aiRouter);
 
 // Health-check
 app.get('/health', (_req: Request, res: Response) => {
