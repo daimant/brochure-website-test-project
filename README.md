@@ -1,6 +1,6 @@
 # Портфолио — Сергей Поморцев
 
-Лендинг-презентация Frontend-разработчика. Содержит информацию об опыте, стеке, подходе к работе, реализованных проектах, форму обратной связи с отправкой email и AI-ассистента.
+Лендинг-презентация Frontend-разработчика. Содержит информацию об опыте, стеке, подходе к работе, реализованных проектах, форму обратной связи с отправкой email и AI-генерацию примера сообщения прямо в форме.
 
 ---
 
@@ -11,7 +11,7 @@
 | Frontend | TypeScript, SCSS, HTML5, Vite |
 | Backend | Node.js, Express, TypeScript |
 | Email | Nodemailer (SMTP — Gmail / Yandex / любой) |
-| AI | OpenAI API (gpt-4o-mini) |
+| AI | OpenRouter API (free-tier LLMs) |
 | Сборка | Vite 5 (frontend), tsc (backend) |
 
 ---
@@ -26,7 +26,8 @@ brochure-website-test-project/
 │   ├── tsconfig.json
 │   └── src/
 │       ├── styles/
-│       │   ├── main.scss           # Импорты
+│       │   ├── main.scss           # Точка входа стилей (@use партиалов)
+│       │   ├── _forward.scss       # Центральный форвард переменных для партиалов
 │       │   ├── _variables.scss     # Цвета, типографика, миксины
 │       │   ├── _reset.scss
 │       │   ├── _header.scss        # Sticky nav + гамбургер
@@ -36,12 +37,11 @@ brochure-website-test-project/
 │       │   ├── _cases.scss         # Карточки проектов
 │       │   ├── _contact.scss       # Секция контактов
 │       │   ├── _form.scss          # Форма со всеми состояниями
-│       │   ├── _ai-widget.scss     # Glassmorphism AI-виджет
 │       │   └── _footer.scss
 │       └── ts/
 │           ├── main.ts             # Точка входа, typewriter, гамбургер
 │           ├── form.ts             # Валидация + отправка формы
-│           ├── ai-widget.ts        # AI-ассистент
+│           ├── ai-summary.ts       # AI-генерация примера сообщения для формы
 │           └── scroll.ts           # IntersectionObserver анимации
 └── backend/                # Express + TypeScript
     ├── .env.example        # Шаблон переменных окружения
@@ -50,10 +50,9 @@ brochure-website-test-project/
         ├── index.ts                # Сервер, middleware, роуты
         ├── routes/
         │   ├── contact.ts          # POST /api/contact
-        │   └── ai.ts               # POST /api/ai/generate
+        │   └── ai-generate.ts      # POST /api/ai-generate
         └── services/
-            ├── mailer.ts           # Nodemailer, HTML-шаблоны писем
-            └── aiService.ts        # OpenAI SDK wrapper
+            └── mailer.ts           # Nodemailer, HTML-шаблоны писем
 ```
 
 ---
@@ -66,20 +65,34 @@ brochure-website-test-project/
 cd backend
 
 # Установить зависимости
-npm install
+yarn
 
 # Настроить окружение
 cp .env.example .env
-# Заполнить .env: SMTP_*, OWNER_EMAIL, OPENAI_API_KEY
+# Заполнить .env: SMTP_*, OWNER_EMAIL, OPENROUTER_API_KEY
 
 # Режим разработки (ts-node-dev с hot reload)
-npm run dev
+yarn dev
 
 # Production
-npm run build && npm start
+yarn build && yarn start
 ```
 
 Backend запустится на `http://localhost:3001`.
+
+#### Переменные окружения (backend)
+
+| Переменная | Обязательна | Описание |
+|---|---|---|
+| `SMTP_HOST` | да | SMTP-сервер (например, `smtp.gmail.com`) |
+| `SMTP_USER` | да | Логин SMTP |
+| `SMTP_PASS` | да | Пароль SMTP (или пароль приложения) |
+| `OWNER_EMAIL` | да | Email владельца для получения заявок |
+| `SMTP_PORT` | нет | Порт SMTP (по умолчанию 587) |
+| `SMTP_SECURE` | нет | `true` для порта 465 |
+| `OPENROUTER_API_KEY` | нет | Ключ OpenRouter для AI-генерации |
+| `ALLOWED_ORIGINS` | нет | Список разрешённых origin через запятую (по умолчанию `http://localhost:5173`) |
+| `PORT` | нет | Порт сервера (по умолчанию 3001) |
 
 #### Настройка SMTP (Gmail)
 1. Включите двухфакторную аутентификацию в Google-аккаунте
@@ -87,10 +100,11 @@ Backend запустится на `http://localhost:3001`.
 3. Создайте пароль для приложения «Почта»
 4. Вставьте его в `.env` как `SMTP_PASS`
 
-#### Настройка OpenAI
-1. Получите API-ключ на [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
-2. Вставьте в `.env` как `OPENAI_API_KEY`
-3. Если ключ не указан — AI-виджет возвращает заглушку, форма работает в штатном режиме
+#### Настройка OpenRouter
+1. Зарегистрируйтесь на [openrouter.ai](https://openrouter.ai) (бесплатно, карта не нужна)
+2. Получите API-ключ в разделе «Keys»
+3. Вставьте в `.env` как `OPENROUTER_API_KEY`
+4. Если ключ не указан — кнопка генерации возвращает ошибку, форма работает в штатном режиме
 
 ---
 
@@ -100,19 +114,25 @@ Backend запустится на `http://localhost:3001`.
 cd frontend
 
 # Установить зависимости
-npm install
+yarn
 
 # Режим разработки (hot reload, прокси /api → :3001)
-npm run dev
+yarn dev
 
 # Production build
-npm run build
-npm run preview
+yarn build
+yarn preview
 ```
 
 Frontend доступен на `http://localhost:5173`.
 
-> Для полной работы формы и AI-виджета нужен запущенный backend.
+#### Переменные окружения (frontend, опционально)
+
+| Переменная | Описание |
+|---|---|
+| `VITE_API_URL` | Базовый URL backend (по умолчанию `http://localhost:3001`) |
+
+> Для полной работы формы и AI-генерации нужен запущенный backend.
 > В режиме `dev` Vite автоматически проксирует `/api/*` → `localhost:3001`.
 
 ---
@@ -140,20 +160,30 @@ Frontend доступен на `http://localhost:5173`.
 
 ### Что реализовано
 
-| Компонент | Роль AI |
+В форме обратной связи есть кнопка **«Сгенерировать пример»**. При нажатии клиент отправляет запрос на backend, который обращается к OpenRouter и возвращает короткий пример сообщения от лица потенциального работодателя. Текст вставляется в поле сообщения.
+
+Если в поле «Имя» уже что-то введено, это имя передаётся как контекст для персонализации генерации.
+
+| Компонент | Роль |
 |---|---|
-| **AI-виджет на сайте** | Пользователь задаёт вопрос об опыте разработчика → OpenAI генерирует ответ от лица ассистента портфолио |
-| **Системный промпт** | Ограничивает AI темой: Vue, React, TypeScript, проекты e.pn / dv.net / sx.org; при посторонних вопросах вежливо возвращает к профессиональным темам |
-| **Деградация** | Если `OPENAI_API_KEY` не задан — виджет возвращает сообщение «Функция недоступна», сайт работает в штатном режиме |
+| **`ai-summary.ts`** | Кнопка в форме → запрос к `/api/ai-generate` → вставка текста в textarea |
+| **`ai-generate.ts`** | Роут с fallback-перебором моделей OpenRouter (5 моделей, free tier) |
+| **Системный промпт** | AI пишет от лица HR, приглашающего разработчика на интервью (2–3 предложения, без приветствий) |
+| **Деградация** | Если `OPENROUTER_API_KEY` не задан — возвращается ошибка 503, форма работает в штатном режиме |
 
 ### Эндпоинт
 ```
-POST /api/ai/generate
-Body: { "question": "Какой опыт с React?" }
-Response: { "success": true, "response": "..." }
+POST /api/ai-generate
+Body: { "context": "Имя отправителя" }   // необязательно
+Response: { "success": true, "text": "..." }
 ```
 
-Rate limit: 10 запросов на IP в минуту.
+Используемые модели (с автоматическим fallback при rate-limit):
+- `openai/gpt-oss-20b:free`
+- `nvidia/nemotron-nano-9b-v2:free`
+- `liquid/lfm-2.5-1.2b-instruct:free`
+- `google/gemma-4-31b-it:free`
+- `meta-llama/llama-3.3-70b-instruct:free`
 
 ---
 
@@ -162,16 +192,16 @@ Rate limit: 10 запросов на IP в минуту.
 | Инструмент | Применение |
 |---|---|
 | **Claude Sonnet 4.6 (Zed Agent)** | Проектирование архитектуры, генерация всего frontend и backend кода |
-| **OpenAI API (gpt-4o-mini)** | Runtime AI-ассистент в виджете на сайте |
+| **OpenRouter (free-tier LLMs)** | Runtime AI-генерация примера сообщения в форме |
 
 ### Что делалось с помощью ИИ
 - Полный скаффолдинг проекта (структура директорий, конфиги)
-- Весь TypeScript-код: scroll-анимации, форма с валидацией, AI-виджет
+- Весь TypeScript-код: scroll-анимации, форма с валидацией, AI-генерация сообщения
 - SCSS-архитектура: переменные, миксины, адаптивность, состояния
 - HTML-разметка всех секций
-- Backend: Express-роуты, валидация, rate limiting
+- Backend: Express-роуты, валидация, rate limiting, fallback-логика OpenRouter
 - HTML-шаблоны писем (owner + user confirmation)
-- Nodemailer и OpenAI SDK интеграция
+- Nodemailer интеграция
 - README
 
 ### Что корректировалось вручную
